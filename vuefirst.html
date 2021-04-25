@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Try the first vue script</title>
+</head>
+<body>
+<div id="app">
+    <!--dispaly content-->
+    <h1>This is just first one</h1>
+    <input type="text" v-on:input="changeTitle">
+    <p>{{ textname }}</p>
+</div>
+
+<script src="vue.js">
+</script>
+<script>
+<!--initial-->
+new Vue ({
+el: '#app',
+data: {
+    textname: ''
+},
+    methods: {
+        changeTitle: function (event) {
+            this.textname = event.target.value;
+        }
+    }
+})
+</script>
+</body>
+</html>
