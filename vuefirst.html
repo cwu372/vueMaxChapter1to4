@@ -6,10 +6,7 @@
 </head>
 <body>
 <div id="app">
-    <!--dispaly content-->
-    <h1>This is just first one</h1>
-    <input type="text" v-on:input="changeTitle">
-    <p>{{ textname }}</p>
+    <p>{{ sayhello() }}</p>
 </div>
 
 <script src="vue.js">
@@ -19,11 +16,11 @@
 new Vue ({
 el: '#app',
 data: {
-    textname: ''
+    title: 'title'
 },
     methods: {
-        changeTitle: function (event) {
-            this.textname = event.target.value;
+        sayhello: function () {
+            return 'say hello';
         }
     }
 })
