@@ -6,7 +6,25 @@
 </head>
 <body>
 <div id="app">
-    <p>{{ sayhello() }}</p>
+    <p>{{ sayhello }} - <a v-bind:href="link">Google</a></p>
+    <p v-html="finishedLink"></p>
+    <p v-once> {{ name }} {{ age }}</p>
+    <p>{{ getrandom }}  </p>
+    <input type="text" v-bind:value="name">
+    <button v-on:click="incr(2)">Click here</button>
+    <p>age increasing: {{ age }}</p>
+    <p v-on:mousemove="updatecor">
+        Cor: {{x}} and {{y}}
+        - <span v-on:mousemove="dummy"> Dead Spot</span>
+        - <span v-on:mousemove.stop=""> Dead Spot2</span>
+    </p>
+    <input type="text" v-on:keyup.enter.space="alertw">
+    <hr>
+    <button v-on:click="alertw">show alert</button>
+    <input type="text" v-on:keydown.enter="value = $event.target.value">
+    <p>{{ value }}</p>
+    <input type="text" v-model="name">
+    <p>{{ name }}</p>
 </div>
 
 <script src="vue.js">
@@ -16,12 +34,42 @@
 new Vue ({
 el: '#app',
 data: {
-    title: 'title'
+    title: 'I am funny!',
+    link: 'http://google.com',
+    name: 'comer',
+    age:30,
+    x:0,
+    y:0,
+    finishedLink: '<a href="http://google.com">Google</a>',
+    value:0
 },
-    methods: {
+    computed: {
         sayhello: function () {
-            return 'say hello';
+            this.title = 'Hello!';
+            return this.title;
+        },
+        getrandom: function (){
+            return Math.random() * 100;
+        },
+        incr: function (step) {
+            this.age += step
+        },
+        updatecor: function (event){
+            this.x=event.clientX;
+            this.y=event.clientY
+        },
+        dummy: function (event) {
+            event.stopPropagation();
+        },
+        alertw: function (){
+            alert('stop!');
+        },
+        getvalue: function (event){
+            this.value = event.target.value;
         }
+    },
+    methods: {
+
     }
 })
 </script>
