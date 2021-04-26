@@ -2,31 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Try the first vue script</title>
+    <title></title>
 </head>
+<style>
+.demo {
+    width: 100px;
+    height: 100px;
+    background-color: gray;
+    display: inline-block;
+    margin: 10px;
+}
+.red {
+    background-color:red;
+}
+.green {
+    background-color:green;
+}
+.yellow {
+    background-color:yellow;
+}
+</style>
 <body>
 <div id="app">
-    <p>{{ sayhello }} - <a v-bind:href="link">Google</a></p>
-    <p v-html="finishedLink"></p>
+    <a :href="link">Google</a> <p v-html="finishedLink"></p>
     <p v-once> {{ name }} {{ age }}</p>
-    <p>{{ getrandom }}  </p>
-    <input type="text" v-bind:value="name">
-    <button v-on:click="incr(2)">Click here</button>
+    <input type="text" :value="name">
+    <button @click="incr(2)">Increase age</button>
     <p>age increasing: {{ age }}</p>
-    <p v-on:mousemove="updatecor">
+    <p>{{ judgeself }}  </p>
+    <p @mousemove="updatecor">
         Cor: {{x}} and {{y}}
-        - <span v-on:mousemove="dummy"> Dead Spot</span>
-        - <span v-on:mousemove.stop=""> Dead Spot2</span>
+        - <span @mousemove="dummy"> Dead Spot</span>
+        - <span @mousemove.stop=""> Dead Spot2</span>
     </p>
-    <input type="text" v-on:keyup.enter.space="alertw">
+    <input type="text" @keyup.enter.space="alertw">
     <hr>
-    <button v-on:click="alertw">show alert</button>
-    <input type="text" v-on:keydown.enter="value = $event.target.value">
+    <button @click="alertw">show alert</button>
+    <input type="text" @keydown.enter="value = $event.target.value">
     <p>{{ value }}</p>
     <input type="text" v-model="name">
     <p>{{ name }}</p>
+    <div class="demo"
+         @click="attachRed = !attachRed"
+         :class="divClasses"></div>
 </div>
-
 <script src="vue.js">
 </script>
 <script>
@@ -41,16 +60,30 @@ data: {
     x:0,
     y:0,
     finishedLink: '<a href="http://google.com">Google</a>',
-    value:0
+    value:0,
+    attachRed: false,
 },
     computed: {
-        sayhello: function () {
-            this.title = 'Hello!';
-            return this.title;
+        judgeself: function (){
+            return this.age==40 ? 'too old':'so young';
         },
-        getrandom: function (){
-            return Math.random() * 100;
-        },
+        divClasses: function (){
+            return {
+                red: this.attachRed,
+                green: !this.attachRed
+            };
+        }
+    },
+    watch: {
+        judgeself: function(value) {
+        var vm = this;
+        setTimeout(function(){
+            vm.age = 30;
+        },3000);
+    }
+
+    },
+    methods: {
         incr: function (step) {
             this.age += step
         },
@@ -67,9 +100,6 @@ data: {
         getvalue: function (event){
             this.value = event.target.value;
         }
-    },
-    methods: {
-
     }
 })
 </script>
