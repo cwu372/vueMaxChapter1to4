@@ -6,7 +6,12 @@
 </head>
 <body>
 <div id="app">
-<p v-if="show">You can see me</p>
+<p v-if="show">You can <span> or not </span> see me</p>
+    <p v-else>Now you can see</p>
+    <template v-if="show">
+        <h1>Heading</h1>
+        <p>Inside a template</p>
+    </template>
     <p>Do you still see me?</p>
     <button @click="show=!show">Switch display show</button>
 </div>
