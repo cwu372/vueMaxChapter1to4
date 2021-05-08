@@ -12,8 +12,20 @@
         <h1>Heading</h1>
         <p>Inside a template</p>
     </template>
-    <p>Do you still see me?</p>
+    <p v-show="show">Do you still see me?</p>
     <button @click="show=!show">Switch display show</button>
+    <ul>
+        <li v-for="(ingredient, seq) in ingredients">{{ ingredient }} ({{ seq }})</li>
+    </ul>
+    <template v-for="(ingredient, index) in ingredients">
+        <h5>{{ingredient}}</h5>
+        <p>{{index}}</p>
+    </template>
+    <ul>
+        <li v-for="person in persons">
+            <div v-for="(value,key,index) in person">{{key}}: {{value}}({{index}}), </div>
+        </li>
+    </ul>
 </div>
 <script src="vue.js">
 </script>
@@ -21,7 +33,12 @@
     new Vue ({
         el: '#app',
         data: {
-            show: true
+            show: true,
+            ingredients: ['meat','fruit','cookies'],
+            persons: [
+                {name: 'Max', age: 27, color: 'red'},
+                {name: 'Anna', age: 'unknown', color: 'blue'}
+            ]
         }
     })
 </script>
