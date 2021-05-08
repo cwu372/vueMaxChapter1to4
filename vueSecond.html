@@ -15,7 +15,7 @@
     <p v-show="show">Do you still see me?</p>
     <button @click="show=!show">Switch display show</button>
     <ul>
-        <li v-for="(ingredient, seq) in ingredients">{{ ingredient }} ({{ seq }})</li>
+        <li v-for="(ingredient, seq) in ingredients" :key="ingredient">{{ ingredient }} ({{ seq }})</li>
     </ul>
     <template v-for="(ingredient, index) in ingredients">
         <h5>{{ingredient}}</h5>
@@ -26,6 +26,13 @@
             <div v-for="(value,key,index) in person">{{key}}: {{value}}({{index}}), </div>
         </li>
     </ul>
+    <button @click="ingredients.push('spaces')">Add new items</button>
+    <hr>
+    <button @click="nshow = !nshow">Change: {{nshow}}</button>
+    <p v-if="nshow">I am here</p>
+    <p v-else>I am there</p>
+    <p v-show="nshow">Still here</p>
+    <p v-show="!nshow">Still there</p>
 </div>
 <script src="vue.js">
 </script>
@@ -34,11 +41,13 @@
         el: '#app',
         data: {
             show: true,
+            nshow: true,
             ingredients: ['meat','fruit','cookies'],
             persons: [
                 {name: 'Max', age: 27, color: 'red'},
                 {name: 'Anna', age: 'unknown', color: 'blue'}
-            ]
+            ],
+
         }
     })
 </script>
